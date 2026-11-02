@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cápsula del Tiempo - 3ero 1era | Liceo 12</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Sacramento&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        warm: {
+                            50: '#FFFDF9',
+                            100: '#FDF6E3', // Calme yellow / Cream background
+                            200: '#F7EABF',
+                            300: '#EED993',
+                            400: '#E1C268',
+                        },
+                        earth: {
+                            100: '#F4ECE1',
+                            500: '#8C6D53',
+                            700: '#4A3B32', // Main text dark coffee
+                            800: '#362923',
+                            900: '#241B17',
+                        },
+                        amberAccent: {
+                            DEFAULT: '#C87D55', // Warm terracotta / amber accent
+                            hover: '#B26842',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['Cinzel', 'serif'],
+                        cursive: ['Sacramento', 'cursive'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #FDF6E3;
+            color: #4A3B32;
+            background-image: radial-gradient(#EED993 0.75px, transparent 0.75px);
+            background-size: 24px 24px;
+        }
+
+        /* Ambient glowing capsule effect */
+        .capsule-glow {
+            box-shadow: 0 20px 50px -12px rgba(200, 125, 85, 0.15), 0 0 30px 2px rgba(238, 217, 147, 0.3);
+        }
+
+        /* Glassmorphism Card */
+        .glass-card {
+            background: rgba(255, 253, 249, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(238, 217, 147, 0.6);
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(1deg); }
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Gentle Pulse Animation */
+        @keyframes subtlePulse {
+            0%, 100% { opacity: 0.9; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.03); }
+        }
+        .animate-subtle-pulse {
+            animation: subtlePulse 3s ease-in-out infinite;
+        }
+        
+        /* Shimmer lock glow */
+        @keyframes lockGlow {
+            0%, 100% { filter: drop-shadow(0 0 4px rgba(200, 125, 85, 0.3)); }
+            50% { filter: drop-shadow(0 0 12px rgba(200, 125, 85, 0.6)); }
+        }
+        .lock-glow {
+            animation: lockGlow 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-amberAccent/20 selection:text-earth-800 font-sans antialiased">
+
+    <!-- Top Decorative Header / School Tag -->
+    <header class="w-full pt-6 px-4 text-center">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-earth-100/80 border border-warm-300 text-earth-700 text-xs md:text-sm font-medium tracking-wide shadow-sm">
+            <i class="fa-solid fa-graduation-cap text-amberAccent"></i>
+            <span>Liceo 12: Fray Mamerto Esquiú</span>
+            <span class="mx-1 text-warm-400">•</span>
+            <span class="font-semibold text-earth-800">3ero 1era</span>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="w-full max-w-5xl mx-auto px-4 py-6 md:py-10 flex-1 flex flex-col justify-center items-center">
+        
+        <!-- Primary Capsule Container Card -->
+        <div class="w-full glass-card rounded-3xl p-6 sm:p-10 md:p-12 capsule-glow text-center relative overflow-hidden transition-all duration-300 hover:shadow-2xl">
+            
+            <!-- Background Decorative Watermark SVG -->
+            <div class="absolute -right-16 -bottom-16 opacity-5 pointer-events-none text-earth-700">
+                <svg width="320" height="320" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                </svg>
+            </div>
+
+            <!-- Lock & Capsule Icon Banner -->
+            <div class="flex justify-center mb-6">
+                <div class="relative animate-float">
+                    <!-- SVG Lock Container -->
+                    <div class="w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-gradient-to-br from-warm-50 to-warm-200 border border-warm-300 flex items-center justify-center shadow-inner lock-glow">
+                        <svg class="w-10 h-10 md:w-12 md:h-12 text-amberAccent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                        </svg>
+                    </div>
+                    <!-- Small Status Indicator Pill -->
+                    <div id="status-badge" class="absolute -bottom-2 -right-2 bg-amberAccent text-white text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full shadow-sm flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+                        <span>Sellada</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Title Header -->
+            <div class="space-y-3 mb-8">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-earth-800 tracking-tight">
+                    Cápsula del Tiempo
+                </h1>
+                <p class="text-xl sm:text-2xl md:text-3xl font-serif font-medium text-earth-700">
+                    Recuerdos e historias de 3ero 1era
+                </p>
+                <p class="text-sm sm:text-base font-semibold text-amberAccent uppercase tracking-widest pt-1">
+                    Liceo N° 12 "Fray Mamerto Esquiú"
+                </p>
+            </div>
+
+            <!-- COUNTDOWN TIMER DISPLAY -->
+            <div class="mb-10 max-w-2xl mx-auto space-y-4">
+                <p id="countdown-label" class="text-xs sm:text-sm uppercase tracking-widest text-earth-500 font-semibold mb-2">
+                    Faltan para la apertura
+                </p>
+
+                <!-- Top Row: Years, Months, Days -->
+                <div class="grid grid-cols-3 gap-3 sm:gap-4">
+                    <!-- Years -->
+                    <div class="bg-warm-50/90 border border-warm-300/80 rounded-2xl p-3 sm:p-4 shadow-sm flex flex-col justify-center items-center group hover:border-amberAccent/50 transition-colors">
+                        <span id="years" class="text-3xl sm:text-4xl md:text-5xl font-bold text-earth-800 font-serif leading-none">00</span>
+                        <span class="text-[11px] sm:text-xs font-medium text-earth-500 uppercase tracking-wider mt-2">Años</span>
+                    </div>
+
+                    <!-- Months -->
+                    <div class="bg-warm-50/90 border border-warm-300/80 rounded-2xl p-3 sm:p-4 shadow-sm flex flex-col justify-center items-center group hover:border-amberAccent/50 transition-colors">
+                        <span id="months" class="text-3xl sm:text-4xl md:text-5xl font-bold text-earth-800 font-serif leading-none">00</span>
+                        <span class="text-[11px] sm:text-xs font-medium text-earth-500 uppercase tracking-wider mt-2">Meses</span>
+                    </div>
+
+                    <!-- Days -->
+                    <div class="bg-warm-50/90 border border-warm-300/80 rounded-2xl p-3 sm:p-4 shadow-sm flex flex-col justify-center items-center group hover:border-amberAccent/50 transition-colors">
+                        <span id="days" class="text-3xl sm:text-4xl md:text-5xl font-bold text-earth-800 font-serif leading-none">00</span>
+                        <span class="text-[11px] sm:text-xs font-medium text-earth-500 uppercase tracking-wider mt-2">Días</span>
+                    </div>
+                </div>
+
+                <!-- Bottom Row: Hours, Minutes, Seconds -->
+                <div class="grid grid-cols-3 gap-3 sm:gap-4">
+                    <!-- Hours -->
+                    <div class="bg-warm-50/90 border border-warm-300/80 rounded-2xl p-3 sm:p-4 shadow-sm flex flex-col justify-center items-center group hover:border-amberAccent/50 transition-colors">
+                        <span id="hours" class="text-2xl sm:text-3xl font-bold text-earth-800 font-serif leading-none">00</span>
+                        <span class="text-[10px] sm:text-xs font-medium text-earth-500 uppercase tracking-wider mt-2">Horas</span>
+                    </div>
+
+                    <!-- Minutes -->
+                    <div class="bg-warm-50/90 border border-warm-300/80 rounded-2xl p-3 sm:p-4 shadow-sm flex flex-col justify-center items-center group hover:border-amberAccent/50 transition-colors">
+                        <span id="minutes" class="text-2xl sm:text-3xl font-bold text-earth-800 font-serif leading-none">00</span>
+                        <span class="text-[10px] sm:text-xs font-medium text-earth-500 uppercase tracking-wider mt-2">Minutos</span>
+                    </div>
+
+                    <!-- Seconds -->
+                    <div class="bg-warm-50/90 border border-warm-300/80 rounded-2xl p-3 sm:p-4 shadow-sm flex flex-col justify-center items-center group hover:border-amberAccent/50 transition-colors">
+                        <span id="seconds" class="text-2xl sm:text-3xl font-bold text-amberAccent font-serif leading-none">00</span>
+                        <span class="text-[10px] sm:text-xs font-medium text-earth-500 uppercase tracking-wider mt-2">Segundos</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Milestones & Dates Info Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto pt-4 border-t border-warm-200">
+                
+                <!-- Sealed Date Card -->
+                <div class="flex items-center gap-3 p-4 rounded-xl bg-warm-100/60 border border-warm-300/60 text-left">
+                    <div class="w-10 h-10 rounded-lg bg-warm-200/70 flex items-center justify-center text-earth-700 flex-shrink-0">
+                        <i class="fa-regular fa-calendar-check text-lg"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-earth-500 font-medium">Fecha de Sellado</p>
+                        <p class="text-sm font-semibold text-earth-800">5 de noviembre de 2026 — 16:00 hs</p>
+                    </div>
+                </div>
+
+                <!-- Unseal Target Date Card -->
+                <div class="flex items-center gap-3 p-4 rounded-xl bg-amberAccent/10 border border-amberAccent/30 text-left">
+                    <div class="w-10 h-10 rounded-lg bg-amberAccent/20 flex items-center justify-center text-amberAccent flex-shrink-0">
+                        <i class="fa-solid fa-key text-lg"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-earth-500 font-medium">Fecha Prometida de Apertura</p>
+                        <p class="text-sm font-bold text-earth-800">Abril de 2041 (No abrir antes)</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Message Description -->
+            <div class="mt-8 pt-4 text-center max-w-2xl mx-auto">
+                <p class="text-sm sm:text-base text-earth-700 leading-relaxed font-normal">
+                    Esta cápsula custodia mensajes, recuerdos y sueños de los y las estudiantes 3ero 1era (año 2026). Permanece protegida bajo candado digital e institucional hasta nuestro esperado reencuentro.
+                </p>
+            </div>
+
+            <!-- EMAIL REGISTRATION FORM (Integrated with Google Forms) -->
+            <!-- 
+                INSTRUCCIONES PARA VINCULAR CON GOOGLE FORMS:
+                1. Creá un Formulario de Google en Google Drive con 1 campo de texto para el "Email".
+                2. Obtené el link de envío de respuestas:
+                   - Reemplazá el 'action' de abajo por: https://docs.google.com/forms/d/e/TU_FORM_ID/formResponse
+                   - Reemplazá el 'name="entry.XXXXXX"' del input de email por el identificador de tu campo de Google Form (inspeccionando el HTML del form público).
+            -->
+            <iframe name="hidden_iframe" id="hidden_iframe" class="hidden"></iframe>
+            
+            <div class="mt-10 pt-8 border-t border-warm-200 max-w-lg mx-auto">
+                <div class="bg-warm-100/70 border border-warm-300 rounded-2xl p-5 sm:p-6 text-center">
+                    <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-amberAccent/10 text-amberAccent mb-3">
+                        <i class="fa-regular fa-envelope text-lg"></i>
+                    </div>
+                    <h3 class="text-base sm:text-lg font-bold text-earth-800">¿Querés que te avisemos en abril de 2041?</h3>
+                    <p class="text-xs sm:text-sm text-earth-500 mt-1 mb-4">Dejá tu correo electrónico para recibir un recordatorio cuando llegue el día de abrir la cápsula.</p>
+
+                    <form id="email-form" 
+                          action="https://docs.google.com/forms/d/e/1FAIpQLSc_EXAMPLE_FORM_ID/formResponse" 
+                          method="POST" 
+                          target="hidden_iframe"
+                          onsubmit="handleFormSubmit(event)"
+                          class="flex flex-col sm:flex-row gap-2">
+                        <input type="email" 
+                               name="entry.123456789" 
+                               id="email-input"
+                               required 
+                               placeholder="tuemail@ejemplo.com" 
+                               class="flex-1 px-4 py-2.5 rounded-xl border border-warm-300 bg-white text-earth-800 text-sm focus:outline-none focus:ring-2 focus:ring-amberAccent/50 focus:border-amberAccent transition-all placeholder:text-earth-500/60">
+                        <button type="submit" 
+                                class="px-5 py-2.5 rounded-xl bg-amberAccent hover:bg-amberAccent-hover text-white font-medium text-sm transition-all shadow-sm flex items-center justify-center gap-2 flex-shrink-0 active:scale-95">
+                            <span>Registrar email</span>
+                            <i class="fa-solid fa-paper-plane text-xs"></i>
+                        </button>
+                    </form>
+
+                    <!-- Success Feedback Message -->
+                    <div id="success-message" class="hidden mt-3 p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs sm:text-sm font-medium rounded-xl flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-circle-check text-emerald-600"></i>
+                        <span>¡Gracias! Tu email quedó registrado para el aviso en 2041.</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer Information -->
+    <footer class="w-full py-6 text-center text-xs text-earth-500">
+        <p class="flex items-center justify-center gap-1.5">
+            <span>Guardado con afecto para el futuro</span>
+            <i class="fa-solid fa-heart text-amberAccent text-[10px]"></i>
+            <span>Liceo N° 12 "Fray Mamerto Esquiú"</span>
+        </p>
+    </footer>
+
+    <!-- Countdown & Form Logic Script -->
+    <script>
+        // TARGET DATES DEFINITION (Argentina Time UTC-3)
+        const SEALED_DATE = new Date("2026-11-05T16:00:00-03:00");
+        const TARGET_OPEN_DATE = new Date("2041-04-01T00:00:00-03:00");
+
+        // UI Element References
+        const yearsEl = document.getElementById('years');
+        const monthsEl = document.getElementById('months');
+        const daysEl = document.getElementById('days');
+        const hoursEl = document.getElementById('hours');
+        const minutesEl = document.getElementById('minutes');
+        const secondsEl = document.getElementById('seconds');
+        const statusBadge = document.getElementById('status-badge');
+        const countdownLabel = document.getElementById('countdown-label');
+
+        function updateCountdown() {
+            const now = new Date();
+
+            if (now < SEALED_DATE) {
+                statusBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-amber-300 animate-ping"></span><span>Próximo Sellado</span>`;
+                countdownLabel.innerText = "Tiempo restante para el sellado oficial";
+                calculateTimeDifference(now, SEALED_DATE);
+            } else if (now >= SEALED_DATE && now < TARGET_OPEN_DATE) {
+                statusBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span><span>Sellada & Protegida</span>`;
+                countdownLabel.innerText = "Tiempo faltante para la gran apertura (Abril 2041)";
+                calculateTimeDifference(now, TARGET_OPEN_DATE);
+            } else {
+                statusBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span><span>¡Lista para abrir!</span>`;
+                countdownLabel.innerText = "¡El tiempo ha cumplido su ciclo!";
+                yearsEl.innerText = "00";
+                monthsEl.innerText = "00";
+                daysEl.innerText = "00";
+                hoursEl.innerText = "00";
+                minutesEl.innerText = "00";
+                secondsEl.innerText = "00";
+                return;
+            }
+        }
+
+        function calculateTimeDifference(startDate, endDate) {
+            let start = new Date(startDate.getTime());
+            let end = new Date(endDate.getTime());
+
+            if (start > end) return;
+
+            let years = end.getFullYear() - start.getFullYear();
+            let tempDate = new Date(start.getTime());
+            tempDate.setFullYear(start.getFullYear() + years);
+            if (tempDate > end) {
+                years--;
+                tempDate.setFullYear(start.getFullYear() + years);
+            }
+
+            let months = 0;
+            while (true) {
+                let nextMonth = new Date(tempDate.getTime());
+                nextMonth.setMonth(nextMonth.getMonth() + 1);
+                if (nextMonth <= end) {
+                    months++;
+                    tempDate = nextMonth;
+                } else {
+                    break;
+                }
+            }
+
+            let remainingMs = end.getTime() - tempDate.getTime();
+            const secondsMs = 1000;
+            const minutesMs = secondsMs * 60;
+            const hoursMs = minutesMs * 60;
+            const daysMs = hoursMs * 24;
+
+            let days = Math.floor(remainingMs / daysMs);
+            remainingMs %= daysMs;
+
+            let hours = Math.floor(remainingMs / hoursMs);
+            remainingMs %= hoursMs;
+
+            let minutes = Math.floor(remainingMs / minutesMs);
+            remainingMs %= minutesMs;
+
+            let seconds = Math.floor(remainingMs / secondsMs);
+
+            yearsEl.innerText = String(years).padStart(2, '0');
+            monthsEl.innerText = String(months).padStart(2, '0');
+            daysEl.innerText = String(days).padStart(2, '0');
+            hoursEl.innerText = String(hours).padStart(2, '0');
+            minutesEl.innerText = String(minutes).padStart(2, '0');
+            secondsEl.innerText = String(seconds).padStart(2, '0');
+        }
+
+        // Form Submit Handler
+        function handleFormSubmit(event) {
+            // Display friendly success message without page reload
+            setTimeout(() => {
+                document.getElementById('email-form').reset();
+                document.getElementById('success-message').classList.remove('hidden');
+            }, 300);
+        }
+
+        window.onload = function() {
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        };
+    </script>
+</body>
+</html>
