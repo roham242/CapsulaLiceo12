@@ -233,7 +233,7 @@
                 </p>
             </div>
 
-            <!-- EMAIL REGISTRATION FORM (Connected to Google Forms) -->
+            <!-- EMAIL REGISTRATION FORM (Dual-field submit) -->
             <iframe name="hidden_iframe" id="hidden_iframe" class="hidden"></iframe>
             
             <div class="mt-10 pt-8 border-t border-warm-200 max-w-lg mx-auto">
@@ -250,12 +250,19 @@
                           target="hidden_iframe"
                           onsubmit="handleFormSubmit(event)"
                           class="flex flex-col sm:flex-row gap-2">
+                        
+                        <!-- Main visible email input (populates both variables) -->
                         <input type="email" 
-                               name="entry.1199934232" 
-                               id="email-input"
+                               id="main-email-input"
                                required 
                                placeholder="tuemail@ejemplo.com" 
+                               oninput="syncEmailFields(this.value)"
                                class="flex-1 px-4 py-2.5 rounded-xl border border-warm-300 bg-white text-earth-800 text-sm focus:outline-none focus:ring-2 focus:ring-amberAccent/50 focus:border-amberAccent transition-all placeholder:text-earth-500/60">
+
+                        <!-- Hidden Form Inputs for both Google Forms variable targets -->
+                        <input type="hidden" name="entry.1199934232" id="hidden_entry">
+                        <input type="hidden" name="emailAddress" id="hidden_emailAddress">
+
                         <button type="submit" 
                                 class="px-5 py-2.5 rounded-xl bg-amberAccent hover:bg-amberAccent-hover text-white font-medium text-sm transition-all shadow-sm flex items-center justify-center gap-2 flex-shrink-0 active:scale-95">
                             <span>Registrar email</span>
@@ -285,6 +292,12 @@
 
     <!-- Countdown & Form Logic Script -->
     <script>
+        // Synchronize main input with hidden fields for both form target keys
+        function syncEmailFields(val) {
+            document.getElementById('hidden_entry').value = val;
+            document.getElementById('hidden_emailAddress').value = val;
+        }
+
         // TARGET DATES DEFINITION (Argentina Time UTC-3)
         const SEALED_DATE = new Date("2026-11-05T16:00:00-03:00");
         const TARGET_OPEN_DATE = new Date("2041-04-01T00:00:00-03:00");
@@ -376,6 +389,8 @@
 
         // Form Submit Handler
         function handleFormSubmit(event) {
+            const mainVal = document.getElementById('main-email-input').value;
+            syncEmailFields(mainVal);
             setTimeout(() => {
                 document.getElementById('email-form').reset();
                 document.getElementById('success-message').classList.remove('hidden');
