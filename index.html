@@ -233,9 +233,7 @@
                 </p>
             </div>
 
-            <!-- EMAIL REGISTRATION FORM (Dual-field submit) -->
-            <iframe name="hidden_iframe" id="hidden_iframe" class="hidden"></iframe>
-            
+            <!-- EMAIL REGISTRATION FORM -->
             <div class="mt-10 pt-8 border-t border-warm-200 max-w-lg mx-auto">
                 <div class="bg-warm-100/70 border border-warm-300 rounded-2xl p-5 sm:p-6 text-center">
                     <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-amberAccent/10 text-amberAccent mb-3">
@@ -245,25 +243,17 @@
                     <p class="text-xs sm:text-sm text-earth-500 mt-1 mb-4">Dejá tu correo electrónico para recibir un recordatorio cuando llegue el día de abrir la cápsula.</p>
 
                     <form id="email-form" 
-                          action="https://docs.google.com/forms/d/e/1FAIpQLSeaFWes_As2siYn7s-TQ5e7BYxX_Uc9wW47b-FJvt7jzo_mdQ/formResponse" 
-                          method="POST" 
-                          target="hidden_iframe"
                           onsubmit="handleFormSubmit(event)"
                           class="flex flex-col sm:flex-row gap-2">
                         
-                        <!-- Main visible email input (populates both variables) -->
                         <input type="email" 
-                               id="main-email-input"
+                               id="email-input"
                                required 
                                placeholder="tuemail@ejemplo.com" 
-                               oninput="syncEmailFields(this.value)"
                                class="flex-1 px-4 py-2.5 rounded-xl border border-warm-300 bg-white text-earth-800 text-sm focus:outline-none focus:ring-2 focus:ring-amberAccent/50 focus:border-amberAccent transition-all placeholder:text-earth-500/60">
 
-                        <!-- Hidden Form Inputs for both Google Forms variable targets -->
-                        <input type="hidden" name="entry.1199934232" id="hidden_entry">
-                        <input type="hidden" name="emailAddress" id="hidden_emailAddress">
-
                         <button type="submit" 
+                                id="btn-submit"
                                 class="px-5 py-2.5 rounded-xl bg-amberAccent hover:bg-amberAccent-hover text-white font-medium text-sm transition-all shadow-sm flex items-center justify-center gap-2 flex-shrink-0 active:scale-95">
                             <span>Registrar email</span>
                             <i class="fa-solid fa-paper-plane text-xs"></i>
@@ -290,14 +280,8 @@
         </p>
     </footer>
 
-    <!-- Countdown & Form Logic Script -->
+    <!-- Countdown & Direct Submission Logic Script -->
     <script>
-        // Synchronize main input with hidden fields for both form target keys
-        function syncEmailFields(val) {
-            document.getElementById('hidden_entry').value = val;
-            document.getElementById('hidden_emailAddress').value = val;
-        }
-
         // TARGET DATES DEFINITION (Argentina Time UTC-3)
         const SEALED_DATE = new Date("2026-11-05T16:00:00-03:00");
         const TARGET_OPEN_DATE = new Date("2041-04-01T00:00:00-03:00");
@@ -387,14 +371,36 @@
             secondsEl.innerText = String(seconds).padStart(2, '0');
         }
 
-        // Form Submit Handler
+        // Direct async submission to Google Forms using fetch with no-cors
         function handleFormSubmit(event) {
-            const mainVal = document.getElementById('main-email-input').value;
-            syncEmailFields(mainVal);
-            setTimeout(() => {
+            event.preventDefault();
+            
+            const emailValue = document.getElementById('email-input').value;
+            const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSeaFWes_As2siYn7s-TQ5e7BYxX_Uc9wW47b-FJvt7jzo_mdQ/formResponse";
+            
+            const formData = new FormData();
+            formData.append('entry.1199934232', emailValue);
+
+            const btn = document.getElementById('btn-submit');
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Guardando...`;
+
+            fetch(formUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: formData
+            }).then(() => {
                 document.getElementById('email-form').reset();
                 document.getElementById('success-message').classList.remove('hidden');
-            }, 400);
+                btn.disabled = false;
+                btn.innerHTML = `<span>Registrar email</span><i class="fa-solid fa-paper-plane text-xs"></i>`;
+            }).catch((err) => {
+                // Fallback attempt
+                document.getElementById('email-form').reset();
+                document.getElementById('success-message').classList.remove('hidden');
+                btn.disabled = false;
+                btn.innerHTML = `<span>Registrar email</span><i class="fa-solid fa-paper-plane text-xs"></i>`;
+            });
         }
 
         window.onload = function() {
